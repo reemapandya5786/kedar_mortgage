@@ -1,0 +1,54 @@
+<div class="faq-container">
+  <section class="header-section">
+    <h1>Frequently Asked Questions</h1>
+    <p class="subtitle">
+      Find answers to common questions about mortgages and our services
+    </p>
+  </section>
+
+  <section class="faq-content">
+    <div class="content-wrapper">
+      <div class="category-filter">
+        <button
+          *ngFor="let category of categories"
+          class="category-btn"
+          [class.active]="selectedCategory === category.id"
+          (click)="selectCategory(category.id)"
+        >
+          {{ category.name }}
+        </button>
+      </div>
+
+      <div class="faq-list">
+        <div
+          *ngFor="let faq of filteredFaqs"
+          class="faq-item"
+          [class.expanded]="faq.isExpanded"
+        >
+          <div class="faq-question" (click)="toggleFaq(faq)">
+            <h3>{{ faq.question }}</h3>
+            <span class="toggle-icon">{{ faq.isExpanded ? "−" : "+" }}</span>
+          </div>
+          <div class="faq-answer" *ngIf="faq.isExpanded">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-results" *ngIf="filteredFaqs.length === 0">
+        <p>No questions found matching your criteria.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="help-section">
+    <div class="help-content">
+      <h2>Still Have Questions?</h2>
+      <p>Can't find the answer you're looking for? Our team is here to help!</p>
+      <div class="help-actions">
+        <button class="btn btn-primary">Contact Us</button>
+        <button class="btn btn-secondary">Schedule a Call</button>
+      </div>
+    </div>
+  </section>
+</div>

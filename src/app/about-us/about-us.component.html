@@ -1,0 +1,95 @@
+<div class="about-container">
+  <section class="header-section">
+    <h1>About Kedar Mortgage</h1>
+    <p class="subtitle">Your Trusted Mortgage Partner Since 2014</p>
+  </section>
+
+  <section class="mission-section">
+    <div class="content-wrapper">
+      <h2>Our Mission</h2>
+      <p>
+        At Kedar Mortgage, we believe that everyone deserves a chance to own
+        their dream home. Our mission is to provide personalized, transparent,
+        and efficient mortgage solutions that make homeownership accessible and
+        affordable.
+      </p>
+      <p>
+        We are committed to understanding your unique financial situation and
+        finding the best mortgage options tailored to your needs. With our
+        expertise and dedication, we guide you through every step of the home
+        financing process.
+      </p>
+    </div>
+  </section>
+
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let stat of stats">
+        <h3>{{ stat.value }}</h3>
+        <p>{{ stat.label }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="values-section">
+    <div class="content-wrapper">
+      <h2>Our Values</h2>
+      <div class="values-grid">
+        <div class="value-item">
+          <h3>Integrity</h3>
+          <p>
+            We operate with honesty and transparency in all our dealings,
+            ensuring you always know where you stand.
+          </p>
+        </div>
+        <div class="value-item">
+          <h3>Excellence</h3>
+          <p>
+            We strive for excellence in every aspect of our service, from
+            initial consultation to closing.
+          </p>
+        </div>
+        <div class="value-item">
+          <h3>Client-Focused</h3>
+          <p>
+            Your needs and goals are at the center of everything we do. We're
+            here to serve you.
+          </p>
+        </div>
+        <div class="value-item">
+          <h3>Innovation</h3>
+          <p>
+            We leverage the latest technology and industry best practices to
+            streamline your mortgage experience.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="content-wrapper">
+      <h2>Meet Our Team</h2>
+      <p class="team-intro">
+        Our experienced professionals are dedicated to helping you achieve your
+        homeownership goals.
+      </p>
+      <div class="team-grid">
+        <div class="team-card" *ngFor="let member of teamMembers">
+          <div class="team-image">
+            <img [src]="member.image" [alt]="member.name" />
+          </div>
+          <h3>{{ member.name }}</h3>
+          <p class="position">{{ member.position }}</p>
+          <p class="bio">{{ member.bio }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Ready to Work With Us?</h2>
+    <p>Let's discuss how we can help you achieve your homeownership dreams.</p>
+    <button class="btn btn-primary">Contact Us Today</button>
+  </section>
+</div>

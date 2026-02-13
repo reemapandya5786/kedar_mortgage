@@ -1,0 +1,160 @@
+<div class="contact-container">
+  <section class="header-section">
+    <h1>Contact Us</h1>
+    <p class="subtitle">Get in touch with our mortgage experts</p>
+  </section>
+
+  <section class="contact-content">
+    <div class="content-wrapper">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>Let's Talk</h2>
+          <p>
+            Have questions about mortgage rates, pre-approval, or our services?
+            We're here to help!
+          </p>
+
+          <div class="info-items">
+            <div class="info-item">
+              <div class="icon">📞</div>
+              <div class="details">
+                <h3>Phone</h3>
+                <p>(555) 123-4567</p>
+                <p class="note">Mon-Fri: 9AM - 6PM</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon">📧</div>
+              <div class="details">
+                <h3>Email</h3>
+                <p>info&#64;kedarmortgage.com</p>
+                <p class="note">We'll respond within 24 hours</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon">📍</div>
+              <div class="details">
+                <h3>Office</h3>
+                <p>123 Financial Plaza</p>
+                <p>Suite 500</p>
+                <p>Your City, ST 12345</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon">⏰</div>
+              <div class="details">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 3:00 PM</p>
+                <p>Sunday: Closed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+          <h2>Send Us a Message</h2>
+          <p class="form-intro">
+            Fill out the form below and we'll get back to you as soon as
+            possible.
+          </p>
+
+          <form
+            class="contact-form"
+            (ngSubmit)="onSubmit()"
+            #contactFormRef="ngForm"
+          >
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                [(ngModel)]="contactForm.name"
+                required
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="contactForm.email"
+                required
+                placeholder="john@example.com"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                [(ngModel)]="contactForm.phone"
+                placeholder="(555) 123-4567"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <select
+                id="subject"
+                name="subject"
+                [(ngModel)]="contactForm.subject"
+                required
+              >
+                <option value="">Select a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="rates">Mortgage Rates</option>
+                <option value="preapproval">Pre-Approval</option>
+                <option value="refinance">Refinancing</option>
+                <option value="firsttime">First-Time Buyer</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea
+                id="message"
+                name="message"
+                [(ngModel)]="contactForm.message"
+                required
+                rows="6"
+                placeholder="Tell us how we can help you..."
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!contactFormRef.form.valid"
+            >
+              Send Message
+            </button>
+
+            <div class="success-message" *ngIf="submitted">
+              ✓ Thank you! Your message has been sent successfully. We'll get
+              back to you soon.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-section">
+    <h2>Visit Our Office</h2>
+    <div class="map-placeholder">
+      <p>🗺️ Map integration would go here</p>
+      <p class="note">(Google Maps or similar)</p>
+    </div>
+  </section>
+</div>
