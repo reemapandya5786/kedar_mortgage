@@ -64,8 +64,9 @@
 
           <form
             class="contact-form"
-            (ngSubmit)="onSubmit()"
+            (ngSubmit)="onSubmit(contactFormRef)"
             #contactFormRef="ngForm"
+            novalidate
           >
             <div class="form-group">
               <label for="name">Full Name *</label>
@@ -74,9 +75,34 @@
                 id="name"
                 name="name"
                 [(ngModel)]="contactForm.name"
+                #nameModel="ngModel"
                 required
+                minlength="2"
+                maxlength="80"
+                [pattern]="namePattern.source"
+                [class.invalid-field]="shouldShowError(nameModel)"
                 placeholder="John Doe"
               />
+              <div class="error-message" *ngIf="shouldShowError(nameModel)">
+                <span *ngIf="nameModel.errors?.['required']"
+                  >Full name is required.</span
+                >
+                <span
+                  *ngIf="
+                    !nameModel.errors?.['required'] &&
+                    nameModel.errors?.['minlength']
+                  "
+                  >Full name must be at least 2 characters.</span
+                >
+                <span
+                  *ngIf="
+                    !nameModel.errors?.['required'] &&
+                    !nameModel.errors?.['minlength'] &&
+                    nameModel.errors?.['pattern']
+                  "
+                  >Use letters and basic punctuation only.</span
+                >
+              </div>
             </div>
 
             <div class="form-group">
@@ -86,9 +112,24 @@
                 id="email"
                 name="email"
                 [(ngModel)]="contactForm.email"
+                #emailModel="ngModel"
                 required
+                email
+                [class.invalid-field]="shouldShowError(emailModel)"
                 placeholder="john@example.com"
               />
+              <div class="error-message" *ngIf="shouldShowError(emailModel)">
+                <span *ngIf="emailModel.errors?.['required']"
+                  >Email is required.</span
+                >
+                <span
+                  *ngIf="
+                    !emailModel.errors?.['required'] &&
+                    emailModel.errors?.['email']
+                  "
+                  >Enter a valid email address.</span
+                >
+              </div>
             </div>
 
             <div class="form-group">
@@ -98,8 +139,16 @@
                 id="phone"
                 name="phone"
                 [(ngModel)]="contactForm.phone"
+                #phoneModel="ngModel"
+                [pattern]="phonePattern.source"
+                [class.invalid-field]="shouldShowError(phoneModel)"
                 placeholder="(555) 123-4567"
               />
+              <div class="error-message" *ngIf="shouldShowError(phoneModel)">
+                <span
+                  >Enter a valid phone number (10-20 digits/characters).</span
+                >
+              </div>
             </div>
 
             <div class="form-group">
@@ -108,7 +157,9 @@
                 id="subject"
                 name="subject"
                 [(ngModel)]="contactForm.subject"
+                #subjectModel="ngModel"
                 required
+                [class.invalid-field]="shouldShowError(subjectModel)"
               >
                 <option value="">Select a subject</option>
                 <option value="general">General Inquiry</option>
@@ -118,6 +169,9 @@
                 <option value="firsttime">First-Time Buyer</option>
                 <option value="other">Other</option>
               </select>
+              <div class="error-message" *ngIf="shouldShowError(subjectModel)">
+                <span>Select a subject.</span>
+              </div>
             </div>
 
             <div class="form-group">
@@ -126,10 +180,34 @@
                 id="message"
                 name="message"
                 [(ngModel)]="contactForm.message"
+                #messageModel="ngModel"
                 required
+                minlength="20"
+                maxlength="1000"
                 rows="6"
+                [class.invalid-field]="shouldShowError(messageModel)"
                 placeholder="Tell us how we can help you..."
               ></textarea>
+              <div class="error-message" *ngIf="shouldShowError(messageModel)">
+                <span *ngIf="messageModel.errors?.['required']"
+                  >Message is required.</span
+                >
+                <span
+                  *ngIf="
+                    !messageModel.errors?.['required'] &&
+                    messageModel.errors?.['minlength']
+                  "
+                  >Message must be at least 20 characters.</span
+                >
+                <span
+                  *ngIf="
+                    !messageModel.errors?.['required'] &&
+                    !messageModel.errors?.['minlength'] &&
+                    messageModel.errors?.['maxlength']
+                  "
+                  >Message cannot exceed 1000 characters.</span
+                >
+              </div>
             </div>
 
             <button
@@ -139,6 +217,13 @@
             >
               Send Message
             </button>
+
+            <div
+              class="error-summary"
+              *ngIf="submitAttempted && !contactFormRef.form.valid"
+            >
+              Please fix the highlighted fields before submitting.
+            </div>
 
             <div class="success-message" *ngIf="submitted">
               ✓ Thank you! Your message has been sent successfully. We'll get
