@@ -1,0 +1,98 @@
+<div class="blog-detail-container" *ngIf="post">
+  <article class="blog-article">
+    <div class="article-header">
+      <div class="content-wrapper">
+        <nav class="breadcrumb">
+          <a [routerLink]="['/blog']">Blog</a>
+          <span class="separator">›</span>
+          <span class="current">{{ post.title }}</span>
+        </nav>
+
+        <div class="header-meta">
+          <span class="category">{{ post.category }}</span>
+          <span class="read-time">{{ post.readTime }}</span>
+        </div>
+
+        <h1>{{ post.title }}</h1>
+
+        <div class="article-info">
+          <div class="author-info">
+            <div class="author-avatar">
+              <span>{{ post.author.charAt(0) }}</span>
+            </div>
+            <div class="author-details">
+              <p class="author-name">{{ post.author }}</p>
+              <p class="publish-date">{{ post.date }}</p>
+            </div>
+          </div>
+          <div class="social-share">
+            <button class="share-btn">Share</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="featured-image">
+      <img [src]="post.image" [alt]="post.title" />
+    </div>
+
+    <div class="article-content">
+      <div class="content-wrapper">
+        <div class="content-body">
+          <p *ngFor="let paragraph of post.content">{{ paragraph }}</p>
+        </div>
+
+        <div class="article-footer">
+          <div class="tags">
+            <span class="tag">{{ post.category }}</span>
+            <span class="tag">Mortgage Tips</span>
+            <span class="tag">Home Buying</span>
+          </div>
+          <div class="share-section">
+            <p>Share this article:</p>
+            <div class="share-buttons">
+              <button class="share-btn-social facebook">Facebook</button>
+              <button class="share-btn-social twitter">Twitter</button>
+              <button class="share-btn-social linkedin">LinkedIn</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <section class="related-posts">
+    <div class="content-wrapper">
+      <h2>Related Articles</h2>
+      <div class="related-grid">
+        <a
+          *ngFor="let related of relatedPosts"
+          [routerLink]="['/blog', related.id]"
+          class="related-card"
+        >
+          <h3>{{ related.title }}</h3>
+          <p>{{ related.excerpt }}</p>
+          <span class="read-more">Read More →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Get Started?</h2>
+      <p>Let our experts help you find the perfect mortgage solution</p>
+      <button class="btn btn-primary" [routerLink]="['/contact']">
+        Contact Us
+      </button>
+    </div>
+  </section>
+</div>
+
+<div class="not-found" *ngIf="!post">
+  <div class="content-wrapper">
+    <h1>Blog Post Not Found</h1>
+    <p>Sorry, the blog post you're looking for doesn't exist.</p>
+    <a [routerLink]="['/blog']" class="btn btn-primary">Back to Blog</a>
+  </div>
+</div>

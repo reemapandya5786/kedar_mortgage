@@ -1,0 +1,111 @@
+<div class="testimonials-container">
+  <section class="header-section">
+    <h1>Client Testimonials</h1>
+    <p class="subtitle">
+      See what our happy clients have to say about their experience
+    </p>
+  </section>
+
+  <section class="stats-section">
+    <div class="stats-wrapper">
+      <div class="stat-item">
+        <h2>5000+</h2>
+        <p>Happy Clients</p>
+      </div>
+      <div class="stat-item">
+        <h2>4.9/5</h2>
+        <p>Average Rating</p>
+      </div>
+      <div class="stat-item">
+        <h2>98%</h2>
+        <p>Would Recommend</p>
+      </div>
+      <div class="stat-item">
+        <h2>$500M+</h2>
+        <p>Loans Funded</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials-section">
+    <div class="content-wrapper">
+      <div class="testimonials-grid">
+        <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+          <div class="card-header">
+            <div class="client-info">
+              <div class="client-avatar">
+                <span>{{ testimonial.name.charAt(0) }}</span>
+              </div>
+              <div class="client-details">
+                <h3>{{ testimonial.name }}</h3>
+                <p class="location">{{ testimonial.location }}</p>
+                <p class="loan-type">{{ testimonial.loanType }}</p>
+              </div>
+            </div>
+            <div class="rating">
+              <span
+                class="star"
+                *ngFor="let star of getRatingArray(testimonial.rating)"
+                >★</span
+              >
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="testimonial-text">"{{ testimonial.text }}"</p>
+            <p class="date">{{ testimonial.date }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Join Our Happy Clients?</h2>
+      <p>Experience the same exceptional service and support</p>
+      <div class="cta-buttons">
+        <button class="btn btn-primary">Get Started</button>
+        <button class="btn btn-secondary">View Rates</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="review-platforms">
+    <div class="content-wrapper">
+      <h2>Find Us On</h2>
+      <div class="platforms-grid">
+        <div class="platform-item">
+          <h3>Google Reviews</h3>
+          <div class="platform-rating">
+            <span class="rating-number">4.9</span>
+            <span class="stars">★★★★★</span>
+          </div>
+          <p>250+ Reviews</p>
+        </div>
+        <div class="platform-item">
+          <h3>Zillow</h3>
+          <div class="platform-rating">
+            <span class="rating-number">5.0</span>
+            <span class="stars">★★★★★</span>
+          </div>
+          <p>180+ Reviews</p>
+        </div>
+        <div class="platform-item">
+          <h3>Better Business Bureau</h3>
+          <div class="platform-rating">
+            <span class="rating-number">A+</span>
+          </div>
+          <p>Accredited Business</p>
+        </div>
+        <div class="platform-item">
+          <h3>Trustpilot</h3>
+          <div class="platform-rating">
+            <span class="rating-number">4.8</span>
+            <span class="stars">★★★★★</span>
+          </div>
+          <p>300+ Reviews</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

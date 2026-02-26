@@ -1,0 +1,95 @@
+<div class="blog-list-container">
+  <section class="header-section">
+    <h1>Mortgage Blog</h1>
+    <p class="subtitle">
+      Tips, insights, and updates from our mortgage experts
+    </p>
+  </section>
+
+  <section
+    class="featured-section"
+    *ngIf="selectedCategory === 'all' && featuredPosts.length > 0"
+  >
+    <div class="content-wrapper">
+      <h2>Featured Posts</h2>
+      <div class="featured-grid">
+        <a
+          *ngFor="let post of featuredPosts"
+          [routerLink]="['/blog', post.id]"
+          class="featured-card"
+        >
+          <div class="featured-image">
+            <img [src]="post.image" [alt]="post.title" />
+            <span class="category-badge">{{ post.category }}</span>
+          </div>
+          <div class="featured-content">
+            <h3>{{ post.title }}</h3>
+            <p class="excerpt">{{ post.excerpt }}</p>
+            <div class="post-meta">
+              <span class="author">{{ post.author }}</span>
+              <span class="separator">•</span>
+              <span class="date">{{ post.date }}</span>
+              <span class="separator">•</span>
+              <span class="read-time">{{ post.readTime }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog-content">
+    <div class="content-wrapper">
+      <div class="category-filter">
+        <button
+          *ngFor="let category of categories"
+          class="category-btn"
+          [class.active]="selectedCategory === category.id"
+          (click)="selectCategory(category.id)"
+        >
+          {{ category.name }}
+        </button>
+      </div>
+
+      <div class="posts-grid">
+        <a
+          *ngFor="let post of filteredPosts"
+          [routerLink]="['/blog', post.id]"
+          class="post-card"
+        >
+          <div class="post-image">
+            <img [src]="post.image" [alt]="post.title" />
+            <span class="read-time-badge">{{ post.readTime }}</span>
+          </div>
+          <div class="post-content">
+            <span class="category">{{ getCategoryName(post.category) }}</span>
+            <h3>{{ post.title }}</h3>
+            <p class="excerpt">{{ post.excerpt }}</p>
+            <div class="post-meta">
+              <span class="author">By {{ post.author }}</span>
+              <span class="date">{{ post.date }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="no-results" *ngIf="filteredPosts.length === 0">
+        <p>No blog posts found in this category.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter-section">
+    <div class="newsletter-content">
+      <h2>Stay Updated</h2>
+      <p>
+        Subscribe to our newsletter for the latest mortgage tips and market
+        insights
+      </p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Enter your email address" />
+        <button class="btn btn-primary">Subscribe</button>
+      </div>
+    </div>
+  </section>
+</div>

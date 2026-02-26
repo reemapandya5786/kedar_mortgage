@@ -1,0 +1,283 @@
+<div class="rate-page-container">
+  <section class="header-section">
+    <h1>Current Mortgage Rates</h1>
+    <p class="subtitle">
+      Compare today's mortgage rates and find the best option for you
+    </p>
+    <p class="last-updated">Last Updated: {{ lastUpdated }}</p>
+  </section>
+
+  <section class="rates-section">
+    <div class="content-wrapper">
+      <div class="rates-intro">
+        <p>
+          Our rates are updated daily and reflect current market conditions. All
+          rates shown assume excellent credit (740+) and are for informational
+          purposes. Your actual rate may vary based on your credit profile, loan
+          amount, and property details.
+        </p>
+      </div>
+
+      <div class="rates-table-wrapper">
+        <h2>Conventional Loans</h2>
+        <div class="rates-table">
+          <div class="table-header">
+            <div class="col">Term</div>
+            <div class="col">Interest Rate</div>
+            <div class="col">APR</div>
+            <div class="col">Points</div>
+            <div class="col">Monthly Payment*</div>
+          </div>
+          <div
+            class="table-row"
+            *ngFor="let rate of getRatesByType('Conventional')"
+          >
+            <div class="col term">{{ rate.term }}</div>
+            <div class="col rate">{{ rate.rate }}%</div>
+            <div class="col apr">{{ rate.apr }}%</div>
+            <div class="col points">{{ rate.points }}</div>
+            <div class="col payment">
+              ${{ rate.monthlyPayment | number: "1.0-0" }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rates-table-wrapper">
+        <h2>FHA Loans</h2>
+        <div class="rates-table">
+          <div class="table-header">
+            <div class="col">Term</div>
+            <div class="col">Interest Rate</div>
+            <div class="col">APR</div>
+            <div class="col">Points</div>
+            <div class="col">Monthly Payment*</div>
+          </div>
+          <div class="table-row" *ngFor="let rate of getRatesByType('FHA')">
+            <div class="col term">{{ rate.term }}</div>
+            <div class="col rate">{{ rate.rate }}%</div>
+            <div class="col apr">{{ rate.apr }}%</div>
+            <div class="col points">{{ rate.points }}</div>
+            <div class="col payment">
+              ${{ rate.monthlyPayment | number: "1.0-0" }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rates-table-wrapper">
+        <h2>VA Loans</h2>
+        <div class="rates-table">
+          <div class="table-header">
+            <div class="col">Term</div>
+            <div class="col">Interest Rate</div>
+            <div class="col">APR</div>
+            <div class="col">Points</div>
+            <div class="col">Monthly Payment*</div>
+          </div>
+          <div class="table-row" *ngFor="let rate of getRatesByType('VA')">
+            <div class="col term">{{ rate.term }}</div>
+            <div class="col rate">{{ rate.rate }}%</div>
+            <div class="col apr">{{ rate.apr }}%</div>
+            <div class="col points">{{ rate.points }}</div>
+            <div class="col payment">
+              ${{ rate.monthlyPayment | number: "1.0-0" }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rates-table-wrapper">
+        <h2>Jumbo Loans</h2>
+        <div class="rates-table">
+          <div class="table-header">
+            <div class="col">Term</div>
+            <div class="col">Interest Rate</div>
+            <div class="col">APR</div>
+            <div class="col">Points</div>
+            <div class="col">Monthly Payment*</div>
+          </div>
+          <div class="table-row" *ngFor="let rate of getRatesByType('Jumbo')">
+            <div class="col term">{{ rate.term }}</div>
+            <div class="col rate">{{ rate.rate }}%</div>
+            <div class="col apr">{{ rate.apr }}%</div>
+            <div class="col points">{{ rate.points }}</div>
+            <div class="col payment">
+              ${{ rate.monthlyPayment | number: "1.0-0" }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="disclaimer">
+        * Monthly payment based on $300,000 loan amount, principal and interest
+        only. Does not include taxes, insurance, or HOA fees.
+      </p>
+    </div>
+  </section>
+
+  <section class="calculator-section">
+    <div class="content-wrapper">
+      <h2>Mortgage Calculator</h2>
+      <p class="calculator-intro">
+        Estimate your monthly mortgage payment with our easy-to-use calculator
+      </p>
+
+      <div class="calculator-grid">
+        <div class="calculator-inputs">
+          <div class="input-group">
+            <label for="loanAmount">Home Price</label>
+            <div class="input-with-prefix">
+              <span class="prefix">$</span>
+              <input
+                type="number"
+                id="loanAmount"
+                name="loanAmount"
+                [(ngModel)]="calcLoanAmount"
+                (ngModelChange)="calculateMortgage()"
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="downPayment">Down Payment</label>
+            <div class="input-with-prefix">
+              <span class="prefix">$</span>
+              <input
+                type="number"
+                id="downPayment"
+                name="downPayment"
+                [(ngModel)]="calcDownPayment"
+                (ngModelChange)="calculateMortgage()"
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="interestRate">Interest Rate</label>
+            <div class="input-with-suffix">
+              <input
+                type="number"
+                id="interestRate"
+                name="interestRate"
+                step="0.125"
+                [(ngModel)]="calcInterestRate"
+                (ngModelChange)="calculateMortgage()"
+              />
+              <span class="suffix">%</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="loanTerm">Loan Term</label>
+            <select
+              id="loanTerm"
+              name="loanTerm"
+              [(ngModel)]="calcLoanTerm"
+              (ngModelChange)="calculateMortgage()"
+            >
+              <option value="30">30 Years</option>
+              <option value="20">20 Years</option>
+              <option value="15">15 Years</option>
+              <option value="10">10 Years</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary" (click)="calculateMortgage()">
+            Calculate
+          </button>
+        </div>
+
+        <div class="calculator-results" *ngIf="calculation">
+          <h3>Your Estimated Payment</h3>
+          <div class="result-main">
+            <p class="result-label">Monthly Payment</p>
+            <p class="result-value">
+              ${{ calculation.monthlyPayment | number: "1.0-0" }}
+            </p>
+          </div>
+
+          <div class="result-details">
+            <div class="detail-item">
+              <span class="label">Loan Amount</span>
+              <span class="value"
+                >${{ calculation.loanAmount | number: "1.0-0" }}</span
+              >
+            </div>
+            <div class="detail-item">
+              <span class="label">Total Interest</span>
+              <span class="value"
+                >${{ calculation.totalInterest | number: "1.0-0" }}</span
+              >
+            </div>
+            <div class="detail-item">
+              <span class="label">Total Payment</span>
+              <span class="value"
+                >${{ calculation.totalPayment | number: "1.0-0" }}</span
+              >
+            </div>
+          </div>
+
+          <p class="result-note">
+            This estimate includes principal and interest only. Actual monthly
+            payment will also include property taxes, homeowners insurance, and
+            possibly HOA fees and PMI.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <div class="content-wrapper">
+      <h2>Understanding Mortgage Rates</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>What Affects Your Rate?</h3>
+          <ul>
+            <li>Credit score</li>
+            <li>Down payment amount</li>
+            <li>Loan type and term</li>
+            <li>Debt-to-income ratio</li>
+            <li>Property location and type</li>
+            <li>Market conditions</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>Rate vs. APR</h3>
+          <p>
+            The interest rate is what you pay to borrow money. The APR (Annual
+            Percentage Rate) includes the interest rate plus other loan costs
+            like origination fees and discount points, giving you a more
+            complete picture of the loan's cost.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>What Are Points?</h3>
+          <p>
+            Discount points are fees you can pay upfront to lower your interest
+            rate. One point equals 1% of your loan amount. Paying points can
+            make sense if you plan to keep the loan long enough to recoup the
+            upfront cost through lower payments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Lock In Your Rate?</h2>
+      <p>
+        Contact us today to discuss your mortgage options and get a personalized
+        rate quote
+      </p>
+      <div class="cta-buttons">
+        <button class="btn btn-primary">Get Pre-Approved</button>
+        <button class="btn btn-secondary">Contact Us</button>
+      </div>
+    </div>
+  </section>
+</div>
